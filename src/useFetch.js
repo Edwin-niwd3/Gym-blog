@@ -10,7 +10,11 @@ const useFetch = (url) => {
 
     //runs everytime there is a re-render (if any data changes)
     useEffect(() => {
-      fetch(url)
+
+      const abortCont = new AbortController();
+
+      setTimeout(() => {
+      fetch(url, {signal: abortCont.signal})
       .then(res => {
         if(!res.ok)
         {
@@ -24,9 +28,18 @@ const useFetch = (url) => {
         setError(null);
       })
       .catch(err => {
-        setError(err.message);
-        setisPending(false);
+        if(err.name === 'AbortError')
+        {
+          console.log('Aborted')
+        }
+        else{
+          setError(err.message);
+          setisPending(false);
+        }
       })
+    }, 1000);
+
+      return () => abortCont.abort();
     }, [url]);
     //An empty array means that we only do it on the first initial render
     //We can also add dependancies.
