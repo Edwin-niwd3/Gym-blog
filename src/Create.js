@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import ReactDatePicker, { getDefaultLocale } from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const Create = () => {
-  const [title, setTitle] = useState('');
+  
+  const [SelectedDate, setSelectedDate] = useState(new Date());
   const [body, setBody] = useState('');
-  const [author, setAuthor] = useState('mario');
+  const [Victim, setVictim] = useState('Erick');
   const [isPending, setIsPending] = useState(false);
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blog = {title, body, author};
+
+    const blog = {SelectedDate, body, Victim};
 
     setIsPending(true);
 
@@ -29,33 +35,36 @@ const Create = () => {
     <div className="create">
       <h2>Add a New Blog</h2>
       <form onSubmit = {handleSubmit}>
-        <label>Blog title:</label>
-        <input 
-        type="text" 
-        required
-        value = {title}
-        onChange = {(e) => setTitle(e.target.value)}
+        <label>Victim</label>
+        <select
+        value = {Victim}
+        onChange = {(e) => setVictim(e.target.value)}
+        >
+          <option value="Erick">Erick</option>
+          <option value="Edwin">Edwin</option>
+          <option value="Joaquin">Joaquin</option>
+        </select>
+        <label>Date Done</label>
+        <div className="customDatePickerWidth">
+          <ReactDatePicker 
+        wrapperClassName = "datepicker"
+        dateFormat = "dd/MM/yyyy"
+        selected = {SelectedDate} 
+        onChange = {(date) => setSelectedDate(date)}
         />
-        <label>Blog body:</label>
+        </div>
+        
+        <label>Workouts Done:</label>
         <textarea
         required
         value = {body}
         onChange= {(e) => setBody(e.target.value)}
         >
         </textarea>
-        <label>Blog author:</label>
-        <select
-        value = {author}
-        onChange = {(e) => setAuthor(e.target.value)}
-        >
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
-        </select>
+
         {!isPending && <button>Add blog</button>}
         {isPending && <button disabled>Adding blog...</button>}
-        <p>{ title }</p>
-        <p>{ body }</p>
-        <p>{ author }</p>
+        
       </form>
     </div>
    );

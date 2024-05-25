@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useFetch from "./useFetch";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { format } from "date-fns";
 
 const BlogDetails = () => {
   const {id} = useParams();
@@ -23,8 +24,8 @@ const BlogDetails = () => {
       { error && <div>{error}</div>}
       {blog && (
         <article>
-          <h2>{blog.title}</h2>
-          <p>Written by {blog.author}</p>
+          <h2>{format(blog.SelectedDate, 'dd/MM/yyyy')}</h2>
+          <p>Written by {blog.Victim}</p>
           <div>{blog.body}</div>
           <button onClick = {handleDelete}>Delete</button>
         </article>

@@ -91,6 +91,7 @@
   box-sizing: border-box;
   display: block;
 }
+
 .create button {
   background: #f1356d;
   color: #fff;
@@ -129,4 +130,34 @@
 .not-found a:hover {
   background: #f1356d;
   color: #fff;
+}
+.customDatePickerWidth {
+  width: auto;
+}
+
+.customDatePicker {
+  width: auto !important;
+}
+
+.create input, .create textarea, .create select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* Specific styles for the ReactDatePicker */
+.date-picker-container .react-datepicker-wrapper,
+.date-picker-container .react-datepicker__input-container,
+.date-picker-container .custom-date-picker {
+  width: auto !important;
+  display: inline-block !important;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: center; /* Adjust as needed */
+  align-items: center; /* Adjust as needed */
 }
